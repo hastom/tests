@@ -1,16 +1,25 @@
+/*
+ индекс по category для фильтрации по категории
+ primary для инкремента и сортировки
+*/
 CREATE TABLE `posts` (
     id INT(11) UNSIGNED NOT NULL AUTO_INCREMENT,
-    category ENUM('CAT1','CAT2', 'CAT3'), -- или если список категорий динамический то в зависимости от кол-ва TINYINT / INT
+    category ENUM('CAT1','CAT2', 'CAT3'),
     content VARCHAR(242),
     PRIMARY KEY (`id`),
-    KEY `category` (`category`) -- для фильтрации по категории
+    KEY `category` (`category`)
 ) ENGINE=InnoDB
+
+/*
+ индекс по post_id для выборки лайкнувших по посту, если нужна выборка лайкнутых постов, такой же индекс для user_id
+ primary для реализации many2many связи
+*/
 
 CREATE TABLE `likes` (
     `post_id` INT(11) UNSIGNED NOT NULL,
     `user_id` INT(11) UNSIGNED NOT NULL,
     PRIMARY KEY (`post_id`,`user_id`),
-    KEY `post_id` (`post_id`) -- для выборки лайкнувших по посту, если нужна выборка лайкнутых постов, такой же индекс для user_id
+    KEY `post_id` (`post_id`)
 ) ENGINE=InnoDB;
 
 CREATE TABLE `users` (
