@@ -32,8 +32,8 @@ INSERT INTO `likes` SET `post_id` = ?, `user_id` = ?;
 -- снять лайк
 DELETE FROM `likes` WHERE `post_id` = ? AND `user_id` = ?;
 
--- показать тех кто поставил лайк
-SELECT `users`.* WHERE EXISTS (SELECT 1 FROM `likes` WHERE `likes`.`user_id` = `users`.`id` AND `likes`.`post_id` = ?);
+-- показать тех кто поставил лайк c пагинацией, параметром для id будет последний id на предыдущей странице
+SELECT * FROM `users` WHERE EXISTS (SELECT 1 FROM `likes` WHERE `likes`.`user_id` = `users`.`id` AND `likes`.`post_id` = ?) AND `id` > ? ORDER BY `id` LIMIT 10;
 
 -- добавить пост
 INSERT INTO `posts` SET `category` = ?, `content` = ?;
