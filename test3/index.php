@@ -26,6 +26,7 @@ class LongFileIterator implements SeekableIterator
 	{
 		$this->position = $position;
 		// фикс на случай если мы в 32битной системе и файл все-таки больше чем 2ГБ
+		// иначе $this->position можно не хранить а воспользовать ftell($this->getHandle()) для получения указателя
 		if ($this->position > PHP_INT_MAX) {
 			$offsets = $this->position % PHP_INT_MAX;
 			for ($i = 0; $i < $offsets; $i++) {
