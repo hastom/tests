@@ -25,7 +25,7 @@ class LongFileIterator implements SeekableIterator
 	protected function setPosition($position)
 	{
 		$this->position = $position;
-		// фикс на случай если мы в 32битной системе
+		// фикс на случай если мы в 32битной системе и файл все-таки больше чем 2ГБ
 		if ($this->position > PHP_INT_MAX) {
 			$offsets = $this->position % PHP_INT_MAX;
 			for ($i = 0; $i < $offsets; $i++) {
